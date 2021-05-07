@@ -88,4 +88,9 @@ export class ChatComponent implements OnInit {
     }
     
   }
+
+  escrevendoAlgo(event:any)
+  {
+    console.log("Digitou:"+event.target.value);
+  }
 }
