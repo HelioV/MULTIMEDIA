@@ -1,7 +1,11 @@
+import { element } from 'protractor';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
+import { retry, catchError,map } from 'rxjs/operators';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Message } from './message/message';
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 
 @Injectable({
   providedIn: 'root'
@@ -11,14 +15,22 @@ export class ApiserviceService {
 
    private REST_API_SERVER = 'https://api.giphy.com/v1/gifs/search?api_key=LC122mPAykedUbN1dUybwn2HwB1AB2oZ&q='; // api rest fake
 
-   private REST_API_PYTHON='http://127.0.0.1:8000/pesquisar/';
+   private REST_API_PYTHON='http://192.168.8.103:8000/pesquisar/';
 
-  constructor(private httpClient: HttpClient) { }
+   selectedperson:number=2220;
+
+   private dbPath = '/message';
+
+   tutorialsRef: AngularFireList<Message> = null;
+
+  constructor(private httpClient: HttpClient,private fireStore: AngularFirestore,private db: AngularFireDatabase) {
+    this.tutorialsRef = this.db.list(this.dbPath);
+   }
 
    // Headers
-   httpOptions = {
+  /* httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  }
+  }*/
 
 
    // Obtem GIFS
@@ -49,4 +61,66 @@ export class ApiserviceService {
     console.log(errorMessage);
     return throwError(errorMessage);
   };
+
+  /*getAllMessages()
+  {
+    return this.fireStore.collection('messages').snapshotChanges();
+  }
+
+  getAllMessage(): Observable<any[]>
+  {
+    
+        
+      return this.fireStore.collection('message').snapshotChanges();
+      
+  } */
+
+  getAll(): AngularFireList<Message> {
+    return this.tutorialsRef;
+  }
+
+  create(tutorial: Message): any {
+    return this.tutorialsRef.push(tutorial);
+  }
+
+  update(key: string, value: any): Promise<void> {
+    return this.tutorialsRef.update(key, value);
+  }
+
+  delete(key: string): Promise<void> {
+    return this.tutorialsRef.remove(key);
+  }
+
+  deleteAll(): Promise<void> {
+    return this.tutorialsRef.remove();
+  }
+
+  
+
+
+
+
+  addMessage(message)
+  {
+    
+    this.fireStore.collection('message').add(message).then(res=>{
+      //console.log(res)
+    }).catch(result=>{
+      console.log(result)
+    })
+  }
+
+  addMessages(message)
+  {
+    this.fireStore.collection('messages').add(message);
+  }
+  getselectedperson()
+  {
+    return this.selectedperson;
+  }
+
+  setSelectedPerson(person)
+  {
+    this.selectedperson=person;
+  }
 }

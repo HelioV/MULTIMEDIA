@@ -11,6 +11,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { ItemGifsComponent } from './item-gifs/item-gifs.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxPaginationModule } from 'ngx-pagination';
+// Configure firebase.
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+ 
+// Importing the environment config file for the firebase configuration.
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [AppComponent, SidebarComponent, ChatComponent, ItemGifsComponent],
@@ -18,6 +24,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     BrowserModule,
     CommonModule,
     AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireDatabaseModule,
     FormsModule,
     PickerModule,
     HttpClientModule,

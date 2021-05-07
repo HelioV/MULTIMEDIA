@@ -1,5 +1,4 @@
 import { Component, EventEmitter, OnInit, Output,Input } from '@angular/core';
-import { ApiserviceService } from '../apiservice.service';
 @Component({
   selector: 'app-item-gifs',
   templateUrl: './item-gifs.component.html',
@@ -10,7 +9,7 @@ export class ItemGifsComponent implements OnInit {
 
   @Output() selectedGiff: EventEmitter<any> = new EventEmitter();
   @Input('listaDeGifs') listaGif=null;
-  constructor(private apitService: ApiserviceService) { }
+  constructor() { }
   paginaAtual:number=1;
   content:any;
   finish:boolean=false;

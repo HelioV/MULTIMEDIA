@@ -1,6 +1,8 @@
+import { Teste } from './../message/teste';
+import { Message } from '../message/message';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ApiserviceService } from '../apiservice.service';
-import {  takeUntil } from 'rxjs/operators';
+import {  takeUntil, map } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 @Component({
   selector: 'app-chat',
@@ -10,6 +12,7 @@ import { Subject } from 'rxjs';
 export class ChatComponent implements OnInit {
   @Input() conversation;
   @Output() onSubmit: EventEmitter<any> = new EventEmitter();
+  @Output() atualizarmessages: EventEmitter<any> = new EventEmitter();
   emojiPickerVisible;
   listaDeGifs:any;
   message = '';
@@ -19,7 +22,10 @@ export class ChatComponent implements OnInit {
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(private apitService: ApiserviceService) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { 
+    this.apitService.setSelectedPerson(this.conversation.phone)
+    
+  }
 
   submitMessageapi(event)
   {
@@ -32,32 +38,25 @@ export class ChatComponent implements OnInit {
     
   }
   submitMessage(event) {
-    let value = event.target.value.trim();
+    let value = String(event.target.value.trim());
     this.message = '';
     if (value.length < 1) return false;
     let sms = value.substring(value.length - 4)
     this.now = new Date
-    if(sms==".gif" || sms==".GIF" || sms=="ct=g")
-    {
-      this.conversation.latestMessage = "GIF";
-      this.conversation.messages.unshift({
-        id: 1,
+    
+      this.conversation.latestMessage = value;
+      const smss:Message={
+        id: this.conversation.phone==2219? 2222: 2219,
         body: value,
         time: this.now.getHours()+":"+this.now.getMinutes(),
-        me: true,
-        img:true,
-      });
-    }else 
-    {
-      this.conversation.latestMessage = value;
-    this.conversation.messages.unshift({
-      id: 1,
-      body: value,
-      time: this.now.getHours()+":"+this.now.getMinutes(),
-      me: true,
-      img:false,
-    });
-    }
+        img:false,
+        me: this.conversation.phone==2219? true: false
+      }
+      
+
+       this.apitService.create(smss);
+       
+       
     
   }
 
@@ -78,14 +77,24 @@ export class ChatComponent implements OnInit {
     let sms = value.substring(value.length - 4)
     this.now = new Date
 
-      this.conversation.latestMessage = "GIF";
-      this.conversation.messages.unshift({
-        id: 1,
-        body: value,
-        time: this.now.getHours()+":"+this.now.getMinutes(),
-        me: true,
-        img:true,
-      });
+    const smss:Message={
+      id: this.conversation.phone==2219? 2222: 2219,
+      body: value,
+      time: this.now.getHours()+":"+this.now.getMinutes(),
+      img:true,
+      me: this.conversation.phone==2219? true: false
+    }
+    
+     //this.conversation.messages.unshift(smss);
+     //this.atualizarmessages.emit(event);
+     //this.apitService.addMessage(smss); criar no firestore
+
+     this.apitService.create(smss).then(res=>{
+             console.log("Sucesso")
+     }).catch(res=>{
+            console.log("erro")
+     })
+     
     
     
   }
