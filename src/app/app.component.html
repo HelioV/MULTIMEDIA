@@ -1,0 +1,27 @@
+<div id="background_header"></div>
+<div id="background_body"></div>
+ 
+<div id="chatContainer">
+  <app-sidebar
+    (conversationClicked)="onConversationSelected($event)"
+  ></app-sidebar>
+  <div id="chat"> <p *ngFor="let item of content"> {{item.name}}</p> 
+    <div id="chatPlaceholder" *ngIf="!conversation">
+      <img width="400" src="../assets/images/phoneIcon.png" />
+      <h2>Revolucionando o mundo Giff</h2>
+      <p>
+        Obrigado por usar nossa app. Mantenha-se Atualizado<br />
+        uso, Glogiff.
+      </p>
+      <div class="seperator"></div>
+
+      <p>Continue usando. <a href="#">Get it here</a></p>
+    </div>
+
+    <app-chat [conversation]="conversation" *ngIf="conversation"></app-chat>
+  </div>
+</div> 
+
+
+
+<router-outlet></router-outlet>

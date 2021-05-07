@@ -1,0 +1,19 @@
+
+
+<article  >  
+       
+       <section fxLayout="column">
+               <div *ngFor="let gif of listGiff | paginate: { itemsPerPage: 5, currentPage: paginaAtual }; let i = index">
+                    <img [src]="gif.url" alt=" giffimage" (click)="sendGiff(gif.url)">
+               </div>
+               
+       </section>
+        <pagination-controls (pageChange)="paginaAtual = $event"
+                autoHide="true"
+                responsive="true"
+                previousLabel=""
+                nextLabel=""
+                screenReaderPaginationLabel=""
+                screenReaderPageLabel=""
+              ></pagination-controls>
+</article>
