@@ -19,6 +19,7 @@ export class ChatComponent implements OnInit {
 
   submitMessageapi(event)
   {
+    this.showgifselection=true;
     console.log("Vamos analisar o evento fornecido")
   }
   submitMessage(event) {
@@ -58,6 +59,8 @@ export class ChatComponent implements OnInit {
   selecionouGif(event)
    {
      this.submitGif(event);
+     this.showgifselection=false;
+     this.gifon=false;
    }
    submitGif(event) {
     let value = event.trim();

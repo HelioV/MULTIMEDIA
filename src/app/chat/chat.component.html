@@ -55,10 +55,9 @@
         (keyup.enter)="submitMessage($event)"
       *ngIf="gifon==false"></textarea>
       <textarea
-        
         (ngModelChange)="escrevendoAlgo($event)"
         (keyup.enter)="submitMessageapi($event)"
-        placeholder="Insira uma frase e mostramos o gif"
+        placeholder="Insira uma frase, clique enter e nós mostramos os gifs"
       *ngIf="gifon==true"></textarea>
     </div>
     <div id="micIcon">

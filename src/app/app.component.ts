@@ -18,14 +18,18 @@ export class AppComponent {
     this.conversation = conversation;
   }
 
-
    ngOnInit(): void {
      
 
-     /*this.apitService.getCars().pipe(takeUntil(this.destroy$)).subscribe((data: any[])=>{
-     this.content=data;
-     console.log(this.content)
-    })  */
+      /*this.apitService.getCars('sad').pipe(takeUntil(this.destroy$)).subscribe((datas: any[])=>{
+     this.content=datas;
+     if(this.content.meta['status']==200)
+     {
+       this.content.data.forEach((element)=>{
+             console.log(element.images.original['url'])
+       })
+     }
+    }) */
   }
 
   ngOnDestroy() {
