@@ -16,30 +16,27 @@ export class ItemGifsComponent implements OnInit {
   constructor(private apitService: ApiserviceService) { }
   listGiff:Gif[];
   paginaAtual:number=1;
-  ngOnInit(): void {
+  content:any;
+  finish:boolean=false;
 
-    
-     this.listGiff=
-       [
-        {url:'https://media.giphy.com/media/m2WQBH7DhSdgLfnTUi/giphy.gif'},
-        {url:'https://media.giphy.com/media/l0Iy797ZhIvLhm0Io/giphy.gif'},
-        {url:'https://media.giphy.com/media/m2WQBH7DhSdgLfnTUi/giphy.gif'},
-        {url:'https://media.giphy.com/media/m2WQBH7DhSdgLfnTUi/giphy.gif'},
-        {url:'https://media.giphy.com/media/X8mtsz8N5CBGv4WSgr/giphy.gif'},
-        {url:'https://media.giphy.com/media/m2WQBH7DhSdgLfnTUi/giphy.gif'},
-        {url:'https://media.giphy.com/media/m2WQBH7DhSdgLfnTUi/giphy.gif'},
-        {url:'https://media.giphy.com/media/GCvktC0KFy9l6/giphy.gif'},
-        {url:'https://media.giphy.com/media/m2WQBH7DhSdgLfnTUi/giphy.gif'},
-        {url:'https://media.giphy.com/media/yP6rlwwW7Rdu0/giphy.gif'},
-        {url:'https://media.giphy.com/media/m2WQBH7DhSdgLfnTUi/giphy.gif'},
-        {url:'https://media.giphy.com/media/m2WQBH7DhSdgLfnTUi/giphy.gif'},
+  ngOnInit(): void 
+  {
+     
+     this.loadData();
 
-        
-        ]
-     /*this.apitService.getCars().pipe(takeUntil(this.destroy$)).subscribe((data: any[])=>{
-     this.content=data;
-     console.log(this.content)
-    })  */
+  }
+
+  loadData()
+  {
+    this.apitService.getCars('sad').pipe(takeUntil(this.destroy$)).subscribe((datas: any[])=>{
+      this.content=datas;
+     if(this.content.meta['status']==200)
+     {
+       this.content.data.forEach((element)=>{
+             this.listGiff.push({url:element.images.original['url']})
+       })
+     } 
+    })
   }
 
   ngOnDestroy() {

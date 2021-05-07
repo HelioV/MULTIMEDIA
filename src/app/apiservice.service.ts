@@ -9,7 +9,7 @@ import { retry, catchError } from 'rxjs/operators';
 export class ApiserviceService {
 
 
-   private REST_API_SERVER = 'https://api.automotor.a2hosted.com/api/api_automotor/users'; // api rest fake
+   private REST_API_SERVER = 'https://api.giphy.com/v1/gifs/search?api_key=LC122mPAykedUbN1dUybwn2HwB1AB2oZ&q='; // api rest fake
 
   constructor(private httpClient: HttpClient) { }
 
@@ -20,8 +20,8 @@ export class ApiserviceService {
 
 
    // Obtem GIFS
-  getCars(): Observable<any[]> {
-    return this.httpClient.get<any[]>(this.REST_API_SERVER)
+  getCars(words): Observable<any[]> {
+    return this.httpClient.get<any[]>(this.REST_API_SERVER+words+'&limit=10')
       .pipe(
         retry(2),
         catchError(this.handleError))
