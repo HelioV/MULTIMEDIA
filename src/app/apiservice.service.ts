@@ -11,6 +11,8 @@ export class ApiserviceService {
 
    private REST_API_SERVER = 'https://api.giphy.com/v1/gifs/search?api_key=LC122mPAykedUbN1dUybwn2HwB1AB2oZ&q='; // api rest fake
 
+   private REST_API_PYTHON='http://127.0.0.1:8000/pesquisar/';
+
   constructor(private httpClient: HttpClient) { }
 
    // Headers
@@ -22,6 +24,13 @@ export class ApiserviceService {
    // Obtem GIFS
   getCars(words): Observable<any[]> {
     return this.httpClient.get<any[]>(this.REST_API_SERVER+words+'&limit=10')
+      .pipe(
+        retry(2),
+        catchError(this.handleError))
+  } 
+
+  getGifs(words): Observable<any[]> {
+    return this.httpClient.get<any[]>(this.REST_API_PYTHON+words)
       .pipe(
         retry(2),
         catchError(this.handleError))

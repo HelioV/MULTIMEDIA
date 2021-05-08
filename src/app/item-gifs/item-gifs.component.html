@@ -3,7 +3,7 @@
 <article >  
        
        <section fxLayout="column">
-               <div *ngFor="let gif of listGiff | paginate: { itemsPerPage: 5, currentPage: paginaAtual }; let i = index">
+               <div *ngFor="let gif of listaGif | paginate: { itemsPerPage: 5, currentPage: paginaAtual }; let i = index">
                     <img [src]="gif.url" alt=" giffimage" (click)="sendGiff(gif.url)">
                </div>
                

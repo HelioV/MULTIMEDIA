@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-
+import { ApiserviceService } from '../apiservice.service';
+import {  takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -9,18 +11,25 @@ export class ChatComponent implements OnInit {
   @Input() conversation;
   @Output() onSubmit: EventEmitter<any> = new EventEmitter();
   emojiPickerVisible;
+  listaDeGifs:any;
   message = '';
   now:Date;
   gifon:boolean=false;
   showgifselection:boolean=false;
-  constructor() {}
+  destroy$: Subject<boolean> = new Subject<boolean>();
+  constructor(private apitService: ApiserviceService) { }
 
   ngOnInit(): void {}
 
   submitMessageapi(event)
   {
-    this.showgifselection=true;
-    console.log("Vamos analisar o evento fornecido")
+    let value = event.target.value.trim();
+    if (value.length < 1) return false;
+    this.apitService.getGifs(value).pipe(takeUntil(this.destroy$)).subscribe((datas: any[])=>{
+     this.listaDeGifs=datas;
+     this.showgifselection=true;
+    })
+    
   }
   submitMessage(event) {
     let value = event.target.value.trim();
@@ -28,7 +37,7 @@ export class ChatComponent implements OnInit {
     if (value.length < 1) return false;
     let sms = value.substring(value.length - 4)
     this.now = new Date
-    if(sms==".gif" || sms==".GIF")
+    if(sms==".gif" || sms==".GIF" || sms=="ct=g")
     {
       this.conversation.latestMessage = "GIF";
       this.conversation.messages.unshift({
@@ -68,8 +77,7 @@ export class ChatComponent implements OnInit {
     if (value.length < 1) return false;
     let sms = value.substring(value.length - 4)
     this.now = new Date
-    if(sms==".gif" || sms==".GIF")
-    {
+
       this.conversation.latestMessage = "GIF";
       this.conversation.messages.unshift({
         id: 1,
@@ -78,22 +86,18 @@ export class ChatComponent implements OnInit {
         me: true,
         img:true,
       });
-    }else 
-    {
-      this.conversation.latestMessage = value;
-    this.conversation.messages.unshift({
-      id: 1,
-      body: value,
-      time: this.now.getHours()+":"+this.now.getMinutes(),
-      me: true,
-      img:false,
-    });
-    }
+    
     
   }
 
   escrevendoAlgo(event:any)
   {
     console.log("Digitou:"+event.target.value);
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    // Unsubscribe from the subject
+    this.destroy$.unsubscribe();
   }
 }
