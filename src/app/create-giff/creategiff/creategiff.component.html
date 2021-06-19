@@ -1,0 +1,22 @@
+<article>
+    
+ 
+     <section>
+               <div *ngFor="let gif of imagensDeExemplo | paginate: { itemsPerPage: 5, currentPage: paginaAtual }; let i = index" class="Imagens"> 
+                    <img [src]="gif.webformatURL" alt=" giffimage" 
+                         (click)="SelecioneiEstaImagem(gif.webformatURL,i)">
+               </div>
+
+               <pagination-controls (pageChange)="paginaAtual = $event"
+                autoHide="true"
+                responsive="true"
+                previousLabel=""
+                nextLabel=""
+                screenReaderPaginationLabel=""
+                screenReaderPageLabel=""
+              ></pagination-controls>
+                
+    </section>
+
+
+</article> 

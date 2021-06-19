@@ -19,6 +19,7 @@ export class ChatComponent implements OnInit {
   now:Date;
   gifon:boolean=false;
   showgifselection:boolean=false;
+  ineedCreate:boolean=false;
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(private apitService: ApiserviceService) { }
 
@@ -35,7 +36,7 @@ export class ChatComponent implements OnInit {
      this.listaDeGifs=datas;
      this.showgifselection=true;
     })
-    
+     
   }
   submitMessage(event) {
     let value = String(event.target.value.trim());

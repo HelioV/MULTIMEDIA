@@ -17,9 +17,11 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
  
 // Importing the environment config file for the firebase configuration.
 import { environment } from 'src/environments/environment';
+import { CreategiffComponent } from './create-giff/creategiff/creategiff.component';
+import { ListImageComponent } from './create-giff/list-image/list-image.component';
 
 @NgModule({
-  declarations: [AppComponent, SidebarComponent, ChatComponent, ItemGifsComponent],
+  declarations: [AppComponent, SidebarComponent, ChatComponent, ItemGifsComponent, CreategiffComponent, ListImageComponent],
   imports: [
     BrowserModule,
     CommonModule,

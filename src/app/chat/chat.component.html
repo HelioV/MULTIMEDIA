@@ -5,7 +5,7 @@
         <img src="../../assets/images/noPic.svg" />
       </div>
 
-      <div class="nameSection">Grupo Glogiff</div>
+      <div class="nameSection">{{conversation.name}}</div>
     </div>
     <div class="actionButtons">
       <img src="../../assets/images/attached.svg" />
@@ -54,7 +54,7 @@
         [(ngModel)]="message"
         (keyup.enter)="submitMessage($event)"
       *ngIf="gifon==false"></textarea>
-      <textarea
+      <textarea 
         (ngModelChange)="escrevendoAlgo($event)"
         (keyup.enter)="submitMessageapi($event)"
         placeholder="Insira uma frase, clique enter e nós mostramos os gifs"
@@ -64,8 +64,16 @@
       <img src="../../assets/images/voiceIcon.svg" />
     </div>
   </div>
+
+
+  <div *ngIf="!showgifselection && ineedCreate">
+      <app-creategiff></app-creategiff>
+  </div>
+
 </div>
 
 <div *ngIf="showgifselection">
      <app-item-gifs (selectedGiff)="selecionouGif($event)" [listaDeGifs]="listaDeGifs"></app-item-gifs>
 </div>
+
+

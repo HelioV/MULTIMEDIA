@@ -12,10 +12,9 @@ import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 })
 export class ApiserviceService {
 
-
    private REST_API_SERVER = 'https://api.giphy.com/v1/gifs/search?api_key=LC122mPAykedUbN1dUybwn2HwB1AB2oZ&q='; // api rest fake
 
-   private REST_API_PYTHON='http://192.168.8.103:8000/pesquisar/';
+   private REST_API_PYTHON='http://127.0.0.1:8000/';
 
    selectedperson:number=2220;
 
@@ -42,11 +41,19 @@ export class ApiserviceService {
   } 
 
   getGifs(words): Observable<any[]> {
-    return this.httpClient.get<any[]>(this.REST_API_PYTHON+words)
+    return this.httpClient.get<any[]>(this.REST_API_PYTHON+"pesquisar/"+words)
       .pipe(
-        retry(2),
+        retry(1),
         catchError(this.handleError))
-  } 
+  }
+  
+  pegarImagens(words): Observable<any[]> {
+    return this.httpClient.get<any[]>(this.REST_API_PYTHON+"pesquisarImagem/"+words)
+      .pipe(
+        retry(1),
+        catchError(this.handleError))
+  }
+   
 
   // Manipulação de erros
   handleError(error: HttpErrorResponse) {
@@ -96,10 +103,6 @@ export class ApiserviceService {
   }
 
   
-
-
-
-
   addMessage(message)
   {
     
@@ -123,4 +126,5 @@ export class ApiserviceService {
   {
     this.selectedperson=person;
   }
+   
 }

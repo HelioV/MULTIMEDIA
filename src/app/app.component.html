@@ -3,7 +3,6 @@
  
 <div id="chatContainer">
 
-
   <app-sidebar
     (conversationClicked)="onConversationSelected($event)"
   ></app-sidebar>
@@ -22,6 +21,7 @@
 
     <app-chat [conversation]="conversation" *ngIf="conversation" (atualizarmessages)="updateMessages()"></app-chat>
   </div>
+
 </div>
 
 
