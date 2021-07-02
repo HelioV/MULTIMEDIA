@@ -42,10 +42,10 @@ def Analizando():
     return "Isptec-2021";
 
 def AnalisarTudoEretornaGif(texto):
-    return buscarGiff((AnalisarSentimento(texto)))
+    return buscarGiff(Traduzir(AnalisarSentimento(texto)))
 
 def AnalisaTudoEretornaImagem(texto):
-    return buscarImagem((AnalisarSentimento(texto)))
+    return buscarImagem(Traduzir(AnalisarSentimento(texto)))
 
 def AnalisarSentimento(palavra):
     nlp = spacy.load("pt_core_news_sm")
@@ -60,7 +60,7 @@ def Traduzir(frase):
     headers = {
         'content-type': "application/x-www-form-urlencoded",
         'accept-encoding': "application/gzip",
-        'x-rapidapi-key': "87c0e04185mshe6bdeef9236d559p1b6170jsnbf982b1535cf",
+        'x-rapidapi-key': "dbf20ea061msh77c3016df126518p106565jsn2c05240059b4",
         'x-rapidapi-host': "google-translate1.p.rapidapi.com"
         }
 

@@ -14,7 +14,7 @@ export class ApiserviceService {
  
    private REST_API_SERVER = 'https://api.giphy.com/v1/gifs/search?api_key=LC122mPAykedUbN1dUybwn2HwB1AB2oZ&q='; // api rest fake
 
-   private REST_API_PYTHON='http://192.168.8.102:8000/';
+   private REST_API_PYTHON='http://127.0.0.1:8000/';
 
    selectedperson:number=2220;
 
