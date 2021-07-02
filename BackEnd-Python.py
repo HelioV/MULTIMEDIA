@@ -20,19 +20,29 @@ app = FastAPI()
 
 @app.get("/desejogif")
 def inicio():
- return AnalisarTudoEretornaGif("Estou muito Feliz")
+ return AnalisarTudoEretornaGif("happy")
 
 @app.get("/pesquisar/{palavra}")
 def read_item(palavra: Optional[str] = Header(None)):
     return AnalisarTudoEretornaGif(palavra)
-@app.get("/Teste")
-def testandoMesmo():
-    return "Boas Vindas";
-    
+@app.get("/Teste/{endereco}")
+def testandoMesmo(endereco: Optional[str] = Header(None)):
+    return requests.get(endereco);
+
+@app.get("/BaixarEsteArquivo/{endereco}")
+def read_items(endereco: Optional[str] = Header(None)):
+    resposta=requests.get(endereco)
+    if resposta.status_code== requests.codes.OK:
+        with open("Imagem/"+endereco,'wb') as novo:
+            novo.write(resposta.content)
+            return "Sucesso";
+    else:
+        return resposta.raise_forstatus()
+
 @app.get("/pesquisarImagem/{palavra}")
 def read_item(palavra: Optional[str] = Header(None)):
     return AnalisaTudoEretornaImagem(palavra)
-    
+     
 @app.post("/arquivo")
 def ReceberArquivo(files:List[UploadFile]=File(...)):
  return ArmazenandoAsImagens(files);
@@ -69,7 +79,6 @@ def Traduzir(frase):
     resposta=resposta['data']['translations'];
     return(resposta[0]['translatedText'])
 
-
 def buscarGiff(sentimentoEmQuestao):
     GIF='https://api.giphy.com/v1/gifs/search?api_key=LC122mPAykedUbN1dUybwn2HwB1AB2oZ&q='+sentimentoEmQuestao+'&limit=6';
     resposta = (requests.get(GIF))
@@ -78,6 +87,8 @@ def buscarGiff(sentimentoEmQuestao):
         gifs=[];
         for item in resposta['data']:
             gifs.append(item['images']['original']);
+
+        gifs.append(sentimentoEmQuestao);
         return gifs
     else:
         return (resposta['meta']['status'])
