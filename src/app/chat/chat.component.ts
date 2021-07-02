@@ -17,6 +17,7 @@ export class ChatComponent implements OnInit {
   listaDeGifs:any;
   message = '';
   now:Date;
+  sentimentoDaFrase:String="";
   gifon:boolean=false;
   showgifselection:boolean=false;
   ineedCreate:boolean=false;
@@ -33,6 +34,7 @@ export class ChatComponent implements OnInit {
     let value = event.target.value.trim();
     if (value.length < 1) return false;
     this.apitService.getGifs(value).pipe(takeUntil(this.destroy$)).subscribe((datas: any[])=>{
+     this.sentimentoDaFrase=datas[6];
      this.listaDeGifs=datas;
      this.showgifselection=true;
     })
@@ -70,6 +72,18 @@ export class ChatComponent implements OnInit {
      this.submitGif(event);
      this.showgifselection=false;
      this.gifon=false;
+   }
+
+   desejaCriarGif(event)
+   {
+    this.showgifselection=false;
+    this.ineedCreate=true;
+   }
+
+   desejaFecharJanela(event)
+   {
+    this.showgifselection=false;
+    this.ineedCreate=false;
    }
    submitGif(event) {
     let value = event.trim();

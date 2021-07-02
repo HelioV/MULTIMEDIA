@@ -65,15 +65,14 @@
     </div>
   </div>
 
-
   <div *ngIf="!showgifselection && ineedCreate">
-      <app-creategiff></app-creategiff>
+      <app-creategiff (clodeWindow)="desejaFecharJanela($event)" [pesquisarImagemComPalavraDe]="sentimentoDaFrase"></app-creategiff>
   </div>
 
 </div>
-
+ 
 <div *ngIf="showgifselection">
-     <app-item-gifs (selectedGiff)="selecionouGif($event)" [listaDeGifs]="listaDeGifs"></app-item-gifs>
-</div>
+     <app-item-gifs (selectedGiff)="selecionouGif($event)" (selectedcriarGif)="desejaCriarGif($event)" (clodeWindow)="desejaFecharJanela($event)" [listaDeGifs]="listaDeGifs"></app-item-gifs>
+</div> 
 
 

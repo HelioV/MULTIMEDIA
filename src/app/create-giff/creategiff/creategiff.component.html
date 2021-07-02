@@ -1,7 +1,10 @@
 <article>
     
+      <p class="closeWindow" (click)="sendcloseWindow(false)">
+                 Fechar
+       </p>
  
-     <section>
+     <section *ngIf="imagensDeExemplo">
                <div *ngFor="let gif of imagensDeExemplo | paginate: { itemsPerPage: 5, currentPage: paginaAtual }; let i = index" class="Imagens"> 
                     <img [src]="gif.webformatURL" alt=" giffimage" 
                          (click)="SelecioneiEstaImagem(gif.webformatURL,i)">

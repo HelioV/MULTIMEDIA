@@ -2,6 +2,14 @@
 
 <article >  
        
+       <p class="creategif" (click)="sendCriarGiff(true)">
+                 Criar
+       </p>
+
+       <p class="closeWindow" (click)="sendcloseWindow(false)">
+                 Fechar
+       </p>
+
        <section fxLayout="column">
                <div *ngFor="let gif of listaGif | paginate: { itemsPerPage: 5, currentPage: paginaAtual }; let i = index">
                     <img [src]="gif.url" alt=" giffimage" (click)="sendGiff(gif.url)">

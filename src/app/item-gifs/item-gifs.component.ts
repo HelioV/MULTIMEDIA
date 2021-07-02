@@ -8,6 +8,8 @@ import { Component, EventEmitter, OnInit, Output,Input } from '@angular/core';
 export class ItemGifsComponent implements OnInit {
 
   @Output() selectedGiff: EventEmitter<any> = new EventEmitter();
+  @Output() selectedcriarGif: EventEmitter<any> = new EventEmitter();
+  @Output() clodeWindow: EventEmitter<any> = new EventEmitter();
   @Input('listaDeGifs') listaGif=null;
   constructor() { }
   paginaAtual:number=1;
@@ -19,11 +21,19 @@ export class ItemGifsComponent implements OnInit {
      
   }
 
-
-
   sendGiff(event)
   {
      this.selectedGiff.emit(event);
+  }
+
+  sendCriarGiff(event)
+  {
+     this.selectedcriarGif.emit(event);
+  }
+
+  sendcloseWindow(event)
+  {
+     this.clodeWindow.emit(event);
   }
 
 }

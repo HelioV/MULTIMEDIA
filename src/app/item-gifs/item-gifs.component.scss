@@ -4,6 +4,30 @@ img{
     height: 50px;
 }
 
+.creategif{
+    background-color: #948686;
+    width: 41px;
+    position: relative;
+    left: 52%;
+    border: 1px solid;
+    color: black;
+    border-radius: 8px;
+    padding-left: 4px;
+    cursor: pointer;
+}
+
+.closeWindow{
+    background-color: #948686;
+    width: 58px;
+    position: relative;
+    left: 73%;
+    bottom: 35px;
+    border: 1px solid;
+    color: black;
+    border-radius: 8px;
+    padding-left: 7px;
+    cursor: pointer;
+}
 article{
     position: absolute;
     height: 332px;
